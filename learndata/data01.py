@@ -167,13 +167,18 @@ print(tu)
 # # print(next(g))
 # # print(g.send(100))
 # # print(g.send(200))
-#
-# # g.close()   # 关闭生成器
+
+# g.close()   # 关闭生成器
 # print(next(g))
-# # throw 在生成器内部抛出异常，参数-异常类型、异常内容
+# throw 在生成器内部抛出异常，参数-异常类型、异常内容
 # g.throw(Exception, "异常")
 
-
+# 生成器表达式
+gen_case = ([i, j] for i in range(1, 5) for j in range(1, 5))
+print(gen_case)
+print(next(gen_case))
+print(next(gen_case))
+print(next(gen_case))
 
 
 
