@@ -33,46 +33,46 @@
 #         return '18sui'
 
 # 多态    Python中多态是伪多态，无类型限制   不修改原来的代码下 写子类继承重写
-class Base:
-
-    def run(self):
-        print('----base--run-----')
-
-class Cat(Base):
-    def run(self):
-        print('-----cat---run------')
-
-class Dog(Base):
-    def run(self):
-        print('-----dog---run------')
-
-class Pig(Base):
-    pass
-
-class MyClass:
-    def run(self):
-        print('-----myclass------')
-
-
-b_obj = Base()
-c_obj = Cat()
-d_obj = Dog()
-p_obj = Pig()
-m = MyClass()
-print(isinstance(c_obj, Base))  # True
-# 子类的对象是属于父类的类型
-print(isinstance(c_obj, Cat))  # True
-print(isinstance(c_obj, Base))  # True
-
-# Python中函数的参数 无类型限制
-#假设func参数需要Base类型  鸭子类型--只需对象实现run方法
-def func(base_obj):
-    base_obj.run()
-
-func(b_obj) # ----base--run-----
-func(c_obj) # -----cat---run------
-func(d_obj) # -----dog---run------
-func(p_obj) # ----base--run-----
-func(m) # -----myclass------
+# class Base:
+#
+#     def run(self):
+#         print('----base--run-----')
+#
+# class Cat(Base):
+#     def run(self):
+#         print('-----cat---run------')
+#
+# class Dog(Base):
+#     def run(self):
+#         print('-----dog---run------')
+#
+# class Pig(Base):
+#     pass
+#
+# class MyClass:
+#     def run(self):
+#         print('-----myclass------')
+#
+#
+# b_obj = Base()
+# c_obj = Cat()
+# d_obj = Dog()
+# p_obj = Pig()
+# m = MyClass()
+# print(isinstance(c_obj, Base))  # True
+# # 子类的对象是属于父类的类型
+# print(isinstance(c_obj, Cat))  # True
+# print(isinstance(c_obj, Base))  # True
+#
+# # Python中函数的参数 无类型限制
+# #假设func参数需要Base类型  鸭子类型--只需对象实现run方法
+# def func(base_obj):
+#     base_obj.run()
+#
+# func(b_obj) # ----base--run-----
+# func(c_obj) # -----cat---run------
+# func(d_obj) # -----dog---run------
+# func(p_obj) # ----base--run-----
+# func(m) # -----myclass------
 
 
