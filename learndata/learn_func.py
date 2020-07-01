@@ -449,43 +449,134 @@ sys.setrecursionlimit(3000) # 修改递归最大次数
 # 装饰器实现单例模式 ？？
 
 # __str__ 和 __repr__方法
-class MyClass(object):
-
-    def __init__(self, name):
-        self.name = name
+# class MyClass(object):
+#
+#     def __init__(self, name):
+#         self.name = name
     #
     # def __str__(self):    #   场景：给用户看 abc
     #     print('------str-----')
     #     # print('sdkdjskskdjsdd') # TypeError: __str__ returned non-string (type NoneType)
     #     return self.name
 
-    def __repr__(self): # 给程序员用 'abc'
-        print('------repr--------') # TypeError: __repr__ returned non-string (type NoneType)
-        return '<MyClass.object-{}>'.format(self.name)
+#     def __repr__(self): # 给程序员用 'abc'
+#         print('------repr--------') # TypeError: __repr__ returned non-string (type NoneType)
+#         return '<MyClass.object-{}>'.format(self.name)
+#
+#     def __call__(self, *args, **kwargs):
+#         """对象像函数一样调用的时候触发"""
+#         print('------call-------')
+#
+# m = MyClass('rr')
+#
+# # print(m)    # ------str-----    rr
+# # str(m)  # ------str-----
+# # format(m)  # ------str-----
+#
+# # res = repr(m)
+# # print(res)  # 没写__str__\__repr__ 返回<__main__.MyClass object at 0x105b289d0>
+#
+# # __call__方法
+#
+# def func():
+#     print('------------------')
+#
+# a = '100'
+# # a() # TypeError: 'str' object is not callable
+# print(a)
+# m()
 
-    def __call__(self, *args, **kwargs):
-        """对象像函数一样调用的时候触发"""
-        print('------call-------')
+# 单例模式装饰器
+# def single(cls):
+#     instance = {}
+#     def fun(*args, **kwargs):
+#         if cls in instance:
+#             return instance[cls]
+#         else:
+#             instance[cls] = cls(*args, **kwargs)
+#             return instance[cls]
+#     return fun
+#
+# @single # Test = single(Test)
+# class Test:
+#     pass
+#
+# t = Test()
 
-m = MyClass('rr')
-
-# print(m)    # ------str-----    rr
-# str(m)  # ------str-----
-# format(m)  # ------str-----
-
-# res = repr(m)
-# print(res)  # 没写__str__\__repr__ 返回<__main__.MyClass object at 0x105b289d0>
-
-# __call__方法
-
-def func():
-    print('------------------')
-
-a = '100'
-# a() # TypeError: 'str' object is not callable
-print(a)
 # 通过类实现装饰器 __call__
-m()
+# class Decorator:
+#
+#     def __init__(self, func):
+#         self.func = func
+#
+#     def __call__(self, *args, **kwargs):
+#         print('-------装饰器中的call-------------')
+#         self.func()
+#         print('------------装饰器实现了------------------')
+#
+# @Decorator  # test_01 = Decorator(test_01)
+# def test_01():
+#     print('--------原来的功能函数----------')
+#
+# test_01()
+
+# 上下文管理器
+# with open('test.txt', 'w+', encoding='utf-8') as f:
+#     f.write('加油啊')
+
+# with 后面跟的是一个上下文管理器
+#
+# class MyOpen:
+#     """文件操作的上下文管理器"""
+#
+#     def __init__(self, file_name, method, encoding='utf-8'):
+#         self.file_name = file_name
+#         self.method = method
+#         self.encoding = encoding
+#
+#     def __enter__(self):
+#         self.f = open(self.file_name, self.method, encoding=self.encoding)   # <_io.TextIOWrapper name='test.txt' mode='r' encoding='cp936'> <_io.TextIOWrapper name='test.txt' mode='r' encoding='utf-8'>
+#         return self.f
+#
+#     def __exit__(self, exc_type, exc_val, exc_tb):
+#         print(exc_type) # <class 'NameError'>
+#         print(exc_tb)   # <traceback object at 0x000001F5A0ABF680>
+#         print(exc_val)  # name 'name' is not defined
+#         self.f.close()
+#
+#
+# with MyOpen('test.txt', 'r') as f:
+#     content = f.read()
+#     print(f)
+#     print(name)
+#     print(content)
+
+# 算数运算
+class MyStr:
+
+    def __init__(self, data):
+        self.data = data
+
+    def __str__(self):
+        return self.data
+
+    def __add__(self, other):
+        # print('---触发了add方法---')
+        # print('self', self)
+        # print('other', other)
+        return self.data + other.data
+
+    def __sub__(self, other):
+        return self.data.replace(other.data, '')
+
+s1 = MyStr('sf')
+s2 = MyStr('qw')
+s1+s2
+print(s1+s2)
+s3 = MyStr('qw33')
+print(s3)
+print(s3-s2)
+print((s1+s2)+s3)   # TypeError: can only concatenate str (not "MyStr") to str
 
 
 
