@@ -255,29 +255,173 @@ sys.setrecursionlimit(3000) # 修改递归最大次数
 # fun1([2, 4])
 
 # 装饰器装饰类  可用全局变量，不一定严格遵守闭包
-def add(func):
-    def fun(*args, **kwargs):
-        # print('相乘', a * b)
-        return func(*args, **kwargs)
-    return fun
+# def add(func):
+#     def fun(*args, **kwargs):
+#         # print('相乘', a * b)
+#         return func(*args, **kwargs)
+#     return fun
 
 #装饰器 必须return
-@add    # MyClass = add(MyClass)
+# @add    # MyClass = add(MyClass)
+# class MyClass:
+#
+#     # def __init__(self):
+#     #     pass
+#
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#
+# m = MyClass('lili', 20)
+# print(m)
+
+# 定义一个计算函数运行时间的装饰器(计算时间使用time模块实现)
+# import time
+# def wrapper(func):
+#     def count_time(*args, **kwargs):
+#         start_time = time.time()
+#         func(*args, **kwargs)
+#         end_time = time.time()
+#         print('函数运行的时间{}'.format(end_time - start_time))
+#     return count_time
+#
+# @wrapper
+# def print_index():
+#     print('hhhhhh')
+#
+# print_index()
+
+# 定义装饰器，为多个函数加上认证的功能(用户的账号和密码来源于文件)， 要求登录成功一次，后续的函数都无需再输入用户名和密码
+
+# with open('user.txt') as f:
+#     users = eval(f.read())
+    # account_info['username'] = users['username']
+    # account_info['password'] = users['password']
+    # account_info['token'] = users['token']
+
+
+# def login_check(func):
+#     def auth():
+#         if users['token'] is False:
+#             print('-------------登录页面---------------')
+#             user = input('账号:')
+#             pd = input('密码:')
+#             if (users['username'] == user) and (users['password'] == int(pd)):
+#                 users['token'] = True
+#                 func()
+#         else:
+#             func()
+#     return auth
+#
+# @login_check
+# def login():
+#     print('首页')
+#
+# @login_check
+# def page1():
+#     print('page1')
+#
+# login()
+# page1()
+
+
+# 多个装饰器装饰同一个函数
+# import time
+# def wrapper(func):
+#     def count_time(*args, **kwargs):
+#         start_time = time.time()
+#         func(*args, **kwargs)
+#         end_time = time.time()
+#         print('函数运行的时间{}'.format(end_time - start_time))
+#     return count_time
+#
+# with open('user.txt') as f:
+#     users = eval(f.read())
+#
+# def login_check(func):
+#     def auth(*args, **kwargs):
+#         print('------登录校验的装饰器------------')
+#         if users['token'] is False:
+#             print('-------------登录页面---------------')
+#             user = input('账号:')
+#             pd = input('密码:')
+#             if (users['username'] == user) and (users['password'] == int(pd)):
+#                 users['token'] = True
+#                 func(*args, **kwargs)
+#         else:
+#             func(*args, **kwargs)
+#     return auth
+#
+# # 从上往下执行、从下往上装饰
+# @login_check   # 2、count_tim --> func = login_check(func) func -->auth
+# @wrapper    # 1、func = wrapper(func) func ==> count_time
+# def funcc():
+#     time.sleep(2)
+#     print('此为需要被装饰器的函数')
+#
+# funcc()
+
+# # Python类型中三个内置装饰器
+# class MyTest():
+#
+#     def __init__(self):
+#         self.name = 'llllll'
+#
+#     @classmethod    # 被classmethod装饰后，此方法就是类方法  只能在类中调用
+#     def add(self):
+#         print('add')
+#         print(self) # <class '__main__.MyTest'> 类
+#
+#     @classmethod    # 被classmethod装饰后，此方法就是类方法
+#     def add1(cls):
+#         print('add1')
+#         print(cls) # <class '__main__.MyTest'> 类
+#
+#     def sub(self):
+#         print(self) # <__main__.MyTest object at 0x1070a7ed0> 实例对象
+#
+#     @staticmethod   # 静态方法 无参数 实例和类均能调用
+#     def static():
+#         print('静态方法')
+#
+#     @property   # 设定只读属性 类可调用 ；实例调用后返回值为None 有return时无返回值
+#     def read_attr(self):
+#         print('这个装饰器装饰完后，该方法可像属性一样被调用')
+#         return '18sui'
+#
+#
+# MyTest.add1()
+# MyTest.add()
+# print('**********************************')
+# t = MyTest()
+# t.add()
+# t.sub()
+# t.add1()
+# print('------------------------------------')
+# t.static()
+# MyTest.static()
+# print('####################################')
+# MyTest.read_attr    # <property object at 0x104b3fd70>
+# MyTest.read_attr = '19' #   可对property方法修改，修改后 实例也可对此方法修改
+# print(MyTest.read_attr)
+# print('---------分隔线-----------')
+# t.read_attr
+# t.read_attr = '20'  # 单独用实例对此方法修改抛错 AttributeError: can't set attribute
+# print(t.read_attr)
+# print('---------11分隔线11-----------')
+# print(t.name)
+
+#  用类实现装饰器
+
 class MyClass:
 
-    # def __init__(self):
-    #     pass
-
-    def __init__(self, name, age):
+    def __init__(self, name):
         self.name = name
-        self.age = age
 
-m = MyClass('lili', 20)
-print(m)
+m = MyClass('sss')
+print(m.name)
 
-# 用类装饰器
-# 多个装饰器装饰同一个函数
-# python中类里面的三个内置装饰器
+
 
 
 
