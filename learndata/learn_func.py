@@ -411,20 +411,81 @@ sys.setrecursionlimit(3000) # 修改递归最大次数
 # print('---------11分隔线11-----------')
 # print(t.name)
 
-#  用类实现装饰器
+# 魔术方法
+# class MyClass:
+#
+#     def __init__(self, name):
+#         self.name = name
+#
+#     def __new__(cls, *args, **kwargs):  # AttributeError: 'NoneType' object has no attribute 'name'
+#         print('----new方法-----')
+#         # return super().__new__(cls)
+#         return object.__new__(cls)
+#
+#
+# m = MyClass('sss')
+# print(m.name)
 
-class MyClass:
+# 单例模式 节约内存、设置全局都可以用的情况
+# class MyTest:
+#     instance = None # 设   置一个类属性 用来继承该类有没有创建对象
+#
+#     def __new__(cls, *args, **kwargs):
+#         if not cls.instance:
+#             cls.instance = object.__new__(cls)
+#             return cls.instance
+#         else:
+#             return cls.instance
+#
+#
+# t1 = MyTest()
+# t1.name = 'lili'
+# print(id(t1))
+#
+# t2 = MyTest()
+# print(t2.name)
+# print(id(t2))
+
+# 装饰器实现单例模式 ？？
+
+# __str__ 和 __repr__方法
+class MyClass(object):
 
     def __init__(self, name):
         self.name = name
+    #
+    # def __str__(self):    #   场景：给用户看 abc
+    #     print('------str-----')
+    #     # print('sdkdjskskdjsdd') # TypeError: __str__ returned non-string (type NoneType)
+    #     return self.name
 
-m = MyClass('sss')
-print(m.name)
+    def __repr__(self): # 给程序员用 'abc'
+        print('------repr--------') # TypeError: __repr__ returned non-string (type NoneType)
+        return '<MyClass.object-{}>'.format(self.name)
 
+    def __call__(self, *args, **kwargs):
+        """对象像函数一样调用的时候触发"""
+        print('------call-------')
 
+m = MyClass('rr')
 
+# print(m)    # ------str-----    rr
+# str(m)  # ------str-----
+# format(m)  # ------str-----
 
+# res = repr(m)
+# print(res)  # 没写__str__\__repr__ 返回<__main__.MyClass object at 0x105b289d0>
 
+# __call__方法
+
+def func():
+    print('------------------')
+
+a = '100'
+# a() # TypeError: 'str' object is not callable
+print(a)
+# 通过类实现装饰器 __call__
+m()
 
 
 
