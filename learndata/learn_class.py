@@ -111,31 +111,34 @@
 # print(Test1)    # <class '__main__.Test1'>
 
 # 自定义元类 必须继承type
-# class MyMetaClass(type):
-#     """ 将类的所有属性名变成大写 """
-#
-#     def __new__(cls, name, bases, attr_dict, *args, **kwargs):
-#         print('----------最基础的自定义元类-----------')
-#         # return type.__new__(name, bases, attr_dict)
-#         new_dict = {}
-#         for k, v in attr_dict.items():
-#             new_dict[k.upper()] = v
-#         new_dict['__slots__'] = ['name', 'age', 'gender']
-#         return super().__new__(cls, name, bases, new_dict)
-#
-# # 通过自定义的元类来创建类
-# class Test(metaclass=MyMetaClass):
-#     user_name = 'lili'
-#     user_age = 99
-#     user_gender = '男'
-#
-# # 父类指定元类，子类可继承父类指定的元类
-# class MyClass(Test):
-#     pass
-#
-# # print(type(Test))
-# # print(Test.user_name)
-# # print(type(MyClass))
-# print(Test.__dict__)
+class MyMetaClass(type):
+    """ 将类的所有属性名变成大写 """
+
+    def __new__(cls, name, bases, attr_dict, *args, **kwargs):
+        print('----------最基础的自定义元类-----------')
+        # return type.__new__(name, bases, attr_dict)
+        # new_dict = {}
+        # for k, v in attr_dict.items():
+        #     new_dict[k.upper()] = v
+        for k, v in list(attr_dict.items()):
+            attr_dict.pop(k)
+            attr_dict[k.upper()] = v
+        attr_dict['__slots__'] = ['name', 'age', 'gender']
+        return super().__new__(cls, name, bases, attr_dict)
+
+# 通过自定义的元类来创建类
+class Test(metaclass=MyMetaClass):
+    user_name = 'lili'
+    user_age = 99
+    user_gender = '男'
+
+# 父类指定元类，子类可继承父类指定的元类
+class MyClass(Test):
+    pass
+
+# print(type(Test))
+# print(Test.user_name)
+# print(type(MyClass))
+print(Test.__dict__)
 
 
