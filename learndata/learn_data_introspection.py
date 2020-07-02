@@ -160,7 +160,46 @@ class Case:
 # print(t.name)
 # print(t.age)
 
+# 描述器
+# class Filed:
+#     """ 一个类中，只要出现以下三个方法中的任何一个，那么该类被称为描述器类 """
+#     def __get__(self, instance, owner):
+#         # print(instance) # <__main__.Model object at 0x00000261FEC7A6A0>
+#         # print(self) # <__main__.Filed object at 0x00000261FEC7A5E0>
+#         # print(owner)    # <class '__main__.Model'>
+#         print('--------------访问属性的时候触发__get__---------------------')
+#         return self.value
 #
+#     def __set__(self, instance, value):
+#         # print(instance) # <__main__.Model object at 0x000002852DE1A6A0>
+#         # print(value)    # 1000
+#         # print(self) # <__main__.Filed object at 0x000002852DE1A5E0>
+#         print('--------触发了__set__------------')
+#         self.value = value
+#
+#     def __delete__(self, instance):
+#         # print(instance)
+#         # print(self)
+#         print('----------删除属性的时候触发__delete__---------------------')
+#         # del self.value  # AttributeError: 'Filed' object has no attribute 'value'
+#         self.value = None
+#
+#
+#
+# class Model:
+#     name = 'musen'
+#     attr = Filed()  # 储存的是描述器对象：会覆盖类属性的相关操作
+#
+#
+# m = Model()
+# # m.name = '能改不'
+# m.attr = '1000'
+# # print(m.name)
+# print(m.attr)   # None
+# print('=================================================-----------------------------')
+# del m.attr
+# print(m.attr)
+
 
 
 
