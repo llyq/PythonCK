@@ -104,16 +104,16 @@
 2、节约内存
 """
 
-class Case:
-
-    __slots__ = ['case_id', 'title', 'url', 'data', 'excepted']
-
-    def __init__(self):
-        self.case_id = None
-        self.title = None
-        self.url = None
-        self.data = None
-        self.excepted = None
+# class Case:
+#
+#     __slots__ = ['case_id', 'title', 'url', 'data', 'excepted']
+#
+#     def __init__(self):
+#         self.case_id = None
+#         self.title = None
+#         self.url = None
+#         self.data = None
+#         self.excepted = None
 # 存在列表里 列表嵌套字典， 列表嵌套列表，列表存储对象
 
 # 自定义属性访问
@@ -200,8 +200,63 @@ class Case:
 # del m.attr
 # print(m.attr)
 
+# ORM模型&描述器
+# class CharFiled:
+#
+#     def __init__(self, max_length=20):
+#         self.max_length = max_length
+#
+#     def __get__(self, instance, owner):
+#         return self.value
+#
+#     def __set__(self, instance, value):
+#         if isinstance(value, str):
+#             if len(value) <= self.max_length:
+#                 self.value = value
+#             else:
+#                 raise ValueError('字符串长度应该在{}以内'.format(self.max_length))
+#         else:
+#             raise TypeError('need a str')
+#
+#     def __delete__(self, instance):
+#         # del self.value
+#         self.value = None
+#
+#
+# class InitFiled:
+#
+#     def __get__(self, instance, owner):
+#         return self.value
+#
+#     def __set__(self, instance, value):
+#         if isinstance(value, int):
+#             self.value = value
+#         else:
+#             raise TypeError('need a int')
+#
+#     def __delete__(self, instance):
+#         # del self.value
+#         self.value = None
+#
+#
+# class UserModel:
+#     """ 假设这个是模型类 """
+#     name = CharFiled(max_length=2)  # 要求只能赋值为字符串
+#     pwd = CharFiled(max_length=5)
+#     age = InitFiled()
+#
+#
+# m = UserModel()
+# m.name = '00'
+# m.pwd = '11'
+# m.age = 12
+# print(m.name)
+# print(m.pwd)
+# print(m.age)
 
-
+# django模型中的ORM字段
+from django.db import models
+models.CharField
 
 
 
