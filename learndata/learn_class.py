@@ -75,4 +75,26 @@
 # func(p_obj) # ----base--run-----
 # func(m) # -----myclass------
 
+# 元类 新式类(Python3)、旧式类(经典类Python2)
+#经典类 继承instance Python2
+class MyClass:
+    pass
+#新式类 继承 object
+class Test(object):
+    pass
+
+t = Test()
+print(type(t))  # <class '__main__.Test'>
+print(type(Test))   # <class 'type'>
+print(type(type))   # <class 'type'>
+
+# type：Python中所有的类都是通过type创建出来的 ---元类
+# object：Python3中所有类的顶级父类都是object
+
+
+
+
+
+
+
 
