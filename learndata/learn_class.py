@@ -77,22 +77,38 @@
 
 # 元类 新式类(Python3)、旧式类(经典类Python2)
 #经典类 继承instance Python2
-class MyClass:
-    pass
-#新式类 继承 object
-class Test(object):
-    pass
-
-t = Test()
-print(type(t))  # <class '__main__.Test'>
-print(type(Test))   # <class 'type'>
-print(type(type))   # <class 'type'>
+# class MyClass:
+#     pass
+# #新式类 继承 object
+# class Test(object):
+#     pass
+#
+# t = Test()
+# print(type(t))  # <class '__main__.Test'>
+# print(type(Test))   # <class 'type'>
+# print(type(type))   # <class 'type'>
 
 # type：Python中所有的类都是通过type创建出来的 ---元类
 # object：Python3中所有类的顶级父类都是object
 
-
-
+# 元类 Python中内置的元类 type动态定义类
+# def func(self):
+#     print('---------------self-----------')
+# # 利用元类直接创建类 是无方法的
+# # type创建类需3个参数：类名--字符串、继承的父类--元组、方法+属性--字典
+# Test = type('Test', (object, ), {'name': 'lili', '__attr1': 300, 'function1': func})  # <class '__main__.Test'>
+# # print(Test)
+# print(Test.__dict__)
+# test = Test()
+# test.function1()    # 动态创建类
+# print(Test.__bases__)   # (<class 'object'>,)
+#
+#
+# class Test1:
+#     name = '111'
+#     __attr1 = 200
+#
+# print(Test1)    # <class '__main__.Test1'>
 
 
 
