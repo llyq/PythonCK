@@ -110,15 +110,45 @@ t2.join()
 # print(a)
 print(b)
 
-
-
-
+# 作业：10个线程对象，每个线程发送100次请求，计算平均所需耗时
+# count = 0
+#
+# class RequestThread(threading.Thread):
+#     """ 发送requests请求 """
+#
+#     def __init__(self, url):
+#         self.url = url
+#         super().__init__()
+#
+#     def run(self):
+#         global count
+#         for i in range(100):
+#             res = requests.get(self.url)
+#             count += 1
+#             print('线程：{}---第{}次请求--返回的状态码：{}'.format(threading.current_thread(), i, res.status_code))
+#
+#
+# def main():
+#     start_time = time.time()
+#     # 创建10个线程对象
+#     th = [RequestThread('http://www.baidu.com') for j in range(10)]
+#     # 遍历线程对象
+#     for i in th:
+#         # 开始执行
+#         i.start()
+#     # 遍历线程对象，让主线程等待子线程结束后再往下执行
+#     for j in th:
+#         j.join()
+#     end_time = time.time()
+#     print('平均耗时：', (end_time-start_time)/count)
+#     print(count)
 
 
 if __name__ == '__main__':
     # main_thread()
     # ret = RequestThread()
     # print(ret.run())
+    # main()
     pass
 
 
