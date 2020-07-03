@@ -85,18 +85,24 @@ b = [100]
 def func1():
     global a
     for i in range(1000000):
-        # a += 1
-        b[0] += 1
-    print('func1--线程1修改完b:', b)
+        meta.acquire()
+        a += 1    # 暂停了，切换到了任务2
+        # b[0] += 1
+        meta.release()
+    print('func1--线程1修改完a:', a)
 
 
 def func2():
     global a
     for i in range(1000000):
-        # a += 1
-        b[0] += 1
-    print('func2--线程2修改完b:', b)
+        meta.acquire()  # 上锁
+        a += 1    # a = 10000, 暂停了，切换到了任务1
+        # b[0] += 1
+        meta.release()  # 师傅锁
+    print('func2--线程2修改完a:', a)
 
+# 创建锁
+meta = threading.Lock()
 
 t1 = threading.Thread(target=func1)
 t2 = threading.Thread(target=func2)
@@ -108,7 +114,7 @@ t1.join()
 t2.join()
 
 # print(a)
-print(b)
+print(a)
 
 # 作业：10个线程对象，每个线程发送100次请求，计算平均所需耗时
 # count = 0
