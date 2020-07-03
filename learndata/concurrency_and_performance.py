@@ -85,24 +85,31 @@ b = [100]
 def func1():
     global a
     for i in range(1000000):
-        meta.acquire()
+        metaA.acquire()
+        metaB.acquire()
+        print('------------1----------------')
         a += 1    # 暂停了，切换到了任务2
         # b[0] += 1
-        meta.release()
+        metaB.release()
+        metaA.release()
     print('func1--线程1修改完a:', a)
 
 
 def func2():
     global a
     for i in range(1000000):
-        meta.acquire()  # 上锁
+        metaB.acquire()  # 上锁
+        metaA.acquire()  # 上锁
+        print('-------------2-------------')
         a += 1    # a = 10000, 暂停了，切换到了任务1
         # b[0] += 1
-        meta.release()  # 师傅锁
+        metaA.release()  # 师傅锁
+        metaB.release()  # 释放锁
     print('func2--线程2修改完a:', a)
 
 # 创建锁
-meta = threading.Lock()
+metaA = threading.Lock()
+metaB = threading.Lock()
 
 t1 = threading.Thread(target=func1)
 t2 = threading.Thread(target=func2)
