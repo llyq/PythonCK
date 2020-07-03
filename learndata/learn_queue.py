@@ -2,7 +2,7 @@
 # @FileName  :learn_queue.py
 # @create by :2020/7/3 23:31
 # @author    :liuyuqing
-
+from threading import Thread
 import queue
 
 # 三种队列
@@ -44,10 +44,47 @@ import queue
 
 
 # 3、优先级
-q = queue.PriorityQueue()
-q.put(1, 'ddd')
-q.put(444, 'qewqe')
-q.put(4, 'qwdsc')
-print(q.get())
-print(q.get())
+# q = queue.PriorityQueue()
+# q.put(1, 'ddd')
+# q.put(444, 'qewqe')
+# q.put(4, 'qwdsc')
+# print(q.get())
+# print(q.get())
 
+# 作业：生产者 消费者
+# import time
+# q = queue.Queue()
+#
+# class Producer(Thread):
+#     """ 生产者 """
+#
+#     def run(self):
+#         count = 0
+#         while True:
+#             if q.qsize() < 50:
+#                 for i in range(500):
+#                     count += 1
+#                     goods = '第{}个商品'.format(count)
+#                     q.put(goods)
+#                     print('生产者:', goods)
+#                 time.sleep(1)
+#
+# class Consumer(Thread):
+#     """ 消费者 """
+#
+#     def run(self):
+#         count = 0
+#         while True:
+#             if q.qsize() > 10:
+#                 for i in range(3):
+#                     goods = '消费{}个商品'.format(q.get())
+#                     print('消费者:', goods)
+#             else:
+#                 time.sleep(2)
+#
+# p = Producer()
+# p.start()
+#
+# for i in range(5):
+#     c = Consumer()
+#     c.start()
