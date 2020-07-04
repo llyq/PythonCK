@@ -5,7 +5,7 @@
 import time
 import requests
 # from queue import Queue
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Manager
 
 # 多进程 进程可做到并行，线程只能做到并发
 # 多进程不共享全局变量
@@ -35,43 +35,97 @@ li = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 # 多进程间的通讯问题  解决方法：队列？
 # 创建一个队列 添加10个任务
 # q = Queue()
-count = 0
+# count = 0
 
 # for i in range(10):
 #     q.put('http://www.baidu.com')
 
 
+# def work1(q):
+#     global count
+#     # 判断队列中是否有任务
+#     while q.qsize() > 0:
+#         url = q.get()
+#         # 执行任务
+#         requests.get(url)
+#         print('--work1正在执行任务---{}-'.format(count))
+#         count += 1
+#
+#
+# def work2(q):
+#     global count
+#     # 判断队列中是否有任务
+#     while q.qsize() > 0:
+#         url = q.get()
+#         # 执行任务
+#         requests.get(url)
+#         print('--work2正在执行任务---{}-'.format(count))
+#         count += 1
+
+# 进程池
+import os
+import time
+from multiprocessing import Pool
+
+
+a = 0
+
+
+# def work():
+#     global a
+#     a += 1
+#     print('--------任务次数--{}---进程id：{}----'.format(a, os.getpid()))
+#     time.sleep(0.5)
+
+
 def work1(q):
-    global count
+    global a
     # 判断队列中是否有任务
-    while q.qsize() > 0:
-        url = q.get()
-        # 执行任务
-        requests.get(url)
-        print('--work1正在执行任务---{}-'.format(count))
-        count += 1
+    url = q.get()
+    # 执行任务
+    requests.get(url)
+    a += 1
+    print('--work1正在执行任务---{}-进程id:{}'.format(a, os.getpid()))
 
 
-def work2(q):
-    global count
-    # 判断队列中是否有任务
-    while q.qsize() > 0:
-        url = q.get()
-        # 执行任务
-        requests.get(url)
-        print('--work2正在执行任务---{}-'.format(count))
-        count += 1
 
-
+# 创建进程池
 if __name__ == '__main__':
-    q = Queue()
-    for i in range(10):
+    # 进程池中的队列
+    q = Manager().Queue()
+    for i in range(100):
         q.put('http://www.baidu.com')
-    p1 = Process(target=work1, args=(q, ))
-    p2 = Process(target=work2, args=(q, ))
 
-    p1.start()
-    p2.start()
+    pool = Pool(5)
+    for i in range(10):
+        if q.qsize() > 0:
+            pool.apply_async(func=work1, args=(q, ))
+        else:
+            break
+
+    pool.close()
+    pool.join()
+
+
+
+
+
+
+
+
+
+# if __name__ == '__main__':
+    # q = Queue()
+    # for i in range(10):
+    #     q.put('http://www.baidu.com')
+    # p1 = Process(target=work1, args=(q, ))
+    # p2 = Process(target=work2, args=(q, ))
+    #
+    # p1.start()
+    # p2.start()
+
+
+
 
 
 
