@@ -1,0 +1,66 @@
+.top_menu{
+    height: 100px;
+    /*background: blue;*/
+    /*background: rgb(200,123,222,0.35);*/
+    background: #0033cc;
+}
+.title{
+    background: #0033cc;
+    width: 350px;
+    color: white;
+    font:bold 32px/100px 微软雅黑;
+    text-align: center;
+    float: left;
+}
+.menu_list{
+    width: 800px;
+    float: left;
+    background: #0033cc;
+    height: 100px;
+}
+.menu_list ul{
+    margin: 0px;
+}
+.menu_list li{
+    width: 150px;
+    height: 100px;
+    font: bold 28px/100px 微软雅黑;
+    float: left;
+    background: #0033cc;
+    text-align: center;
+    color: white;
+    list-style: None;
+
+}.line_spacing{
+    background: white;
+    height: 35px;
+}
+.left_menu{
+    width: 350px;
+    height: 800px;
+}
+.manage_project{
+    background: #0033cc;
+    width: 300px;
+    color: white;
+    font:bold 30px/100px 微软雅黑;
+    text-align: center;
+    float: left;
+}
+.left_menu_list{
+    width: 350px;
+    height: 800px;
+}
+.left_menu_list ul{
+    padding: 0px;
+}
+.left_menu_list li{
+    width: 300px;
+    height: 100px;
+    font: bold 22px/100px 微软雅黑;
+    float: left;
+    text-align: center;
+    color: black;
+    list-style: None;
+}
+
